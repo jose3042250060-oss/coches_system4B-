@@ -61,28 +61,29 @@ class App:
 
         self.frame1 = Frame(self.ventana)
         self.frame1.pack()
-        Label(self.frame1, text="Marca: ").pack(pady=2)
+
+        Label(self.frame1, text="Marca: ").grid(row=0, column=0, pady=5,padx=5, sticky="e")
         self.marca = Entry(self.frame1)
         self.marca.focus()
         self.marca.pack(pady=2)
         
-        Label(self.frame1, text="Color: ").pack(pady=2)
+        Label(self.frame1, text="Color: ").grid(row=1, column=0, pady=5,padx=5, sticky="e")
         self.color = Entry(self.frame1)
         self.color.pack(pady=2)
         
-        Label(self.frame1, text="Modelo: ").pack(pady=2)
+        Label(self.frame1, text="Modelo: ").grid(row=2, column=0, pady=5,padx=5, sticky="e")
         self.modelo = Entry(self.frame1)
         self.modelo.pack(pady=2)
         
-        Label(self.frame1, text="Velocidad: ").pack(pady=2)
+        Label(self.frame1, text="Velocidad: ").grid(row=3, column=0, pady=5,padx=5, sticky="e")
         self.velocidad = Entry(self.frame1)
         self.velocidad.pack(pady=2)
         
-        Label(self.frame1, text="Potencia: ").pack(pady=2)
+        Label(self.frame1, text="Potencia: ").grid(row=4, column=0, pady=5,padx=5, sticky="e")
         self.potencia = Entry(self.frame1)
         self.potencia.pack(pady=2)
         
-        Label(self.frame1, text="# de Asientos: ").pack(pady=2)
+        Label(self.frame1, text="# de Asientos: ").grid(row=5, column=0, pady=5,padx=5, sticky="e")
         self.asientos = Entry(self.frame1)
         self.asientos.pack(pady=2)
 
@@ -96,7 +97,7 @@ class App:
         self.barraMenu()
         self.borrarPantalla()
         Label(self.ventana, text="Ingresar el ID del coche que deseas borrar:").pack(pady=10)
-        self.id = Entry(self.ventana)          # antes: self.idBorrar
+        self.id = Entry(self.ventana)        
         self.id.focus()
         self.id.pack(pady=5)
 
