@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, Entry, Button, messagebox, StringVar, Menu, Frame
+from tkinter import Tk, Label, Entry, Button, messagebox, StringVar, Menu, Frame,ttk 
 from turtle import width
 from coches import coches
 
@@ -104,9 +104,8 @@ class App:
         self.id.grid(row=0, column=1, pady=5, padx=5, sticky="w")
 
         self.frame1 = Frame(self.ventana)
-        self.frame1.pack(pady=10)
+        self.frame1.grid(pady=10)
 
-        # CORRECCIÓN: Ambos botones pertenecen a self.frame1 y usan columnas distintas
         self.btn_buscar = Button(self.frame1, text="Buscar",
         command=lambda: self.buscar_controller("eliminar"))
         self.btn_buscar.grid(row=0, column=0, pady=5, padx=5, sticky="e")
@@ -120,8 +119,20 @@ class App:
     def consultar_coche_view(self):
         self.borrarPantalla()
         Label(self.ventana, text="...::: Consultar Coches :::...").grid(row=0, column=0, pady=5, padx=5, sticky="w")
-        filas = self.consultar_coche_controller()
-        Label(self.ventana, text=filas, justify="left").grid(row=1, column=0, pady=5, padx=5, sticky="w")
+        # filas = self.consultar_coche_controller()
+
+        # Tabla
+        self.tree =ttk.Treeview(self.ventana, columns=("ID", "Marca", "Color", "Modelo","Velocidad","Potencia","Asientos"), show="headings")
+        self.tree.heading("ID", text="ID")
+        self.tree.heading("Marca", text="Marca")
+        self.tree.heading("Color", text="Color")
+        self.tree.heading("Modelo", text="Modelo")
+        self.tree.heading("Velocidad", text="Velocidad")
+        self.tree.heading("Potencia", text="Potencia")
+        self.tree.heading("Asientos", text="Asientos")
+        self.tree.grid(row=1, column=0, pady=5, padx=5, sticky="w")
+        
+        # Label(self.ventana, text=filas, justify="left").grid(row=1, column=0, pady=5, padx=5, sticky="w")
         Button(self.ventana, text="::Regresar::", command=self.menu_acciones).grid(row=2, column=0, pady=5, padx=5, sticky="w")
 
     def modificar_coche_view(self):
@@ -231,14 +242,10 @@ class App:
         self.respuesta_sql(respuesta)
 
     def consultar_coche_controller(self):
-        registro = coches.Coches.consultar()
-        filas = ""
-        if len(registro) > 0:
-            for num, fila in enumerate(registro, 1):
-                filas += f"Coche #{num} | ID: {fila[0]} | Marca: {fila[1]} | Color: {fila[2]} | Modelo: {fila[3]} | Vel: {fila[4]} | Pot: {fila[5]} | Asientos: {fila[6]}\n"
-        else:
-            filas = "...¡No se encontró información en la BD!..."
-        return filas
+        for row in self.tree.get_children():
+            self.tree.delete(row)
+        for row in coches.Coches.consultar():
+            self.tree.insert("", "end", values=row)
 
     def modificar_coche_controller(self):
         id_coche = self.id.get()
