@@ -2,7 +2,7 @@ import os
 os.system("cls" if os.name == "nt" else "clear")
 from conexionBD import conexion, cursor 
 
-class Coches():
+class CochesModel():
     def __init__(self, marca, color, modelo, velocidad, potencia, asientos):
         self._marca=marca
         self._color=color
@@ -112,7 +112,7 @@ class Coches():
     def asientos(self,asientos):
         self._asientos=asientos
 
-class Camiones(Coches):
+class Camiones(CochesModel):
     def __init__(self, color, marca, velocidad, modelo, potencia, plazas,eje,capacidadCarga):
         super().__init__(marca=marca, color=color, modelo=modelo, velocidad=velocidad, potencia=potencia, asientos=plazas)
         self.__eje=eje
